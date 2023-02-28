@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'styles/button.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Calculator'),
     );
   }
 }
@@ -47,21 +48,70 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.refresh),
+                    label: Text("clear")),
+                ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.backspace),
+                    label: Text("backspace")),
+                ElevatedButton(onPressed: () {}, child: Text("+")),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: () {}, child: Text("7")),
+                ElevatedButton(onPressed: () {}, child: Text("8")),
+                ElevatedButton(onPressed: () {}, child: Text("9")),
+                ElevatedButton(onPressed: () {}, child: Text("-")),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: () {}, child: Text("4")),
+                ElevatedButton(onPressed: () {}, child: Text("5")),
+                ElevatedButton(onPressed: () {}, child: Text("6")),
+                ElevatedButton(onPressed: () {}, child: Text("X")),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: () {}, child: Text("1")),
+                ElevatedButton(onPressed: () {}, child: Text("2")),
+                ElevatedButton(onPressed: () {}, child: Text("3")),
+                ElevatedButton(onPressed: () {}, child: Text(":")),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(onPressed: () {}, child: Text("0")),
+                ElevatedButton(onPressed: () {}, child: Text(".")),
+                ElevatedButton(onPressed: () {}, child: Text("=")),
+              ],
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
 }
+//equal 
+/*
+Icon(
+  Icons.drag_handle_outlined,
+),
+ */
+//https://api.flutter.dev/flutter/material/IconButton-class.html
+
