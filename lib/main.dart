@@ -6,20 +6,25 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  //static final ValueNotifier<ThemeMode> themeNotifier =
-  //    ValueNotifier(ThemeMode.light);
+  static final ValueNotifier<ThemeMode> themeNotifier =
+      ValueNotifier(ThemeMode.light);
 
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Calculator'),
-    );
+    return ValueListenableBuilder<ThemeMode>(
+        valueListenable: themeNotifier,
+        builder: (_, ThemeMode currentMode, __) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false, // Remove the debug banner
+            title: 'Flutter demo',
+            theme: ThemeData(primarySwatch: Colors.blue), //ThemeData.dark()
+            darkTheme: ThemeData.dark(),
+            themeMode: currentMode,
+            home: const MyHomePage(title: 'Calculator'),
+          );
+        });
   }
 }
 
@@ -34,7 +39,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _number =
-      ""; //dodawanie cyfr do końca liczby (to się wyświetla na ekranie)
+      "0123"; //dodawanie cyfr do końca liczby (to się wyświetla na ekranie)
   double _outcome = 0;
   int _operation =
       0; //jakiś switch będzie przy "=" który w zależności od wyboru wykona daną operację
@@ -103,6 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
   - zapis liczby pierwszej (dodanie na koniec ciągu znakowego _number wpisanej cyfry)
   - działanie (konwersja liczby pierwszej do liczby zmiennoprzecinkowej i zapis do zmiennej _outcome), wpisanie do zmiennej _operation cyfry w zależności od której będzie wykonana operacja
   - wynik (konwersja drugiego ciągu znaków do liczby, i jakiś switch który wykonuje odpowiednią operację, aktualizacja wyświetlacza)
+
+  *ograniczyć długość liczby wpisywanej
+  jednokrotne wykorzystnie kropki
    */
 
   @override
@@ -111,13 +119,26 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: Icon(MyApp.themeNotifier.value == ThemeMode.light
+                ? Icons.dark_mode
+                : Icons.light_mode),
+            onPressed: () {
+              MyApp.themeNotifier.value =
+                  MyApp.themeNotifier.value == ThemeMode.light
+                      ? ThemeMode.dark
+                      : ThemeMode.light;
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$_number',
+              "$_number", //$_number
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Row(
