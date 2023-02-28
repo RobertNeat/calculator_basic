@@ -6,6 +6,9 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  //static final ValueNotifier<ThemeMode> themeNotifier =
+  //    ValueNotifier(ThemeMode.light);
+
   const MyApp({super.key});
 
   @override
@@ -52,18 +55,55 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void push_zero() {
+    setState(() {});
+  }
+
+  void push_one() {
+    setState(() {});
+  }
+
+  void push_two() {
+    setState(() {});
+  }
+
+  void push_three() {
+    setState(() {});
+  }
+
+  void push_four() {
+    setState(() {});
+  }
+
+  void push_five() {
+    setState(() {});
+  }
+
+  void push_six() {
+    setState(() {});
+  }
+
+  void push_seven() {
+    setState(() {});
+  }
+
+  void push_eight() {
+    setState(() {});
+  }
+
+  void push_nine() {
+    setState(() {});
+  }
+
+  void push_dot() {
+    setState(() {});
+  }
   /*
   Schemat działania kalkulatora:
   - zapis liczby pierwszej (dodanie na koniec ciągu znakowego _number wpisanej cyfry)
   - działanie (konwersja liczby pierwszej do liczby zmiennoprzecinkowej i zapis do zmiennej _outcome), wpisanie do zmiennej _operation cyfry w zależności od której będzie wykonana operacja
   - wynik (konwersja drugiego ciągu znaków do liczby, i jakiś switch który wykonuje odpowiednią operację, aktualizacja wyświetlacza)
    */
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +117,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$_counter',
+              '$_number',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Row(
@@ -237,10 +277,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-//equal
-/*
-Icon(
-  Icons.drag_handle_outlined,
-),
- */
-//https://api.flutter.dev/flutter/material/IconButton-class.html
