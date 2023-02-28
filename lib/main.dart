@@ -30,7 +30,34 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String _number =
+      ""; //dodawanie cyfr do końca liczby (to się wyświetla na ekranie)
+  double _outcome = 0;
+  int _operation =
+      0; //jakiś switch będzie przy "=" który w zależności od wyboru wykona daną operację
+  //jeszcze jakaś zmienna od której będzie zależała operacja jaka się wykona
+
+  void reset_calc() {
+    setState(() {
+      _number = "";
+      _outcome = 0;
+    });
+  }
+
+  void backspace_calc() {
+    setState(() {
+      if (_number.isNotEmpty) {
+        _number = _number.substring(0, _number.length - 1);
+      }
+    });
+  }
+
+  /*
+  Schemat działania kalkulatora:
+  - zapis liczby pierwszej (dodanie na koniec ciągu znakowego _number wpisanej cyfry)
+  - działanie (konwersja liczby pierwszej do liczby zmiennoprzecinkowej i zapis do zmiennej _outcome), wpisanie do zmiennej _operation cyfry w zależności od której będzie wykonana operacja
+  - wynik (konwersja drugiego ciągu znaków do liczby, i jakiś switch który wykonuje odpowiednią operację, aktualizacja wyświetlacza)
+   */
 
   void _incrementCounter() {
     setState(() {
@@ -40,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    const double padding_button = 4.0;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -55,50 +83,152 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: Icon(Icons.refresh),
-                    label: Text("clear")),
-                ElevatedButton.icon(
-                    onPressed: () {},
-                    icon: Icon(Icons.backspace),
-                    label: Text("backspace")),
-                ElevatedButton(onPressed: () {}, child: Text("+")),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_long,
+                      onPressed: () {},
+                      child: Icon(Icons.refresh)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_long,
+                      onPressed: () {},
+                      child: Icon(Icons.backspace)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("+")),
+                ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () {}, child: Text("7")),
-                ElevatedButton(onPressed: () {}, child: Text("8")),
-                ElevatedButton(onPressed: () {}, child: Text("9")),
-                ElevatedButton(onPressed: () {}, child: Text("-")),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("7")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("8")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("9")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("-")),
+                ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () {}, child: Text("4")),
-                ElevatedButton(onPressed: () {}, child: Text("5")),
-                ElevatedButton(onPressed: () {}, child: Text("6")),
-                ElevatedButton(onPressed: () {}, child: Text("X")),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("4")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("5")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("6")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("X")),
+                ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () {}, child: Text("1")),
-                ElevatedButton(onPressed: () {}, child: Text("2")),
-                ElevatedButton(onPressed: () {}, child: Text("3")),
-                ElevatedButton(onPressed: () {}, child: Text(":")),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("1")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("2")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("3")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text(":")),
+                ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(onPressed: () {}, child: Text("0")),
-                ElevatedButton(onPressed: () {}, child: Text(".")),
-                ElevatedButton(onPressed: () {}, child: Text("=")),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text("0")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_short,
+                      onPressed: () {},
+                      child: Text(".")),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(padding_button),
+                  child: ElevatedButton(
+                      style: buttonPrimary_very_long,
+                      onPressed: () {},
+                      child: Text("=")),
+                ),
               ],
             ),
           ],
@@ -107,11 +237,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-//equal 
+//equal
 /*
 Icon(
   Icons.drag_handle_outlined,
 ),
  */
 //https://api.flutter.dev/flutter/material/IconButton-class.html
-
