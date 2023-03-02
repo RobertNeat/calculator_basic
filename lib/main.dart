@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'styles/button.dart';
+//do laoutu można by zastosować gridview (taka tabela z elementami)
+
+//fajna jest też opcja elementu SilverList (taki pojemnik scrolowalny na różne elementy) na gridy i na listy
+
+//fajne kalkulatory
 
 void main() {
   runApp(const MyApp());
@@ -39,70 +44,105 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String _number =
-      "0123"; //dodawanie cyfr do końca liczby (to się wyświetla na ekranie)
+      '0'; //dodawanie cyfr do końca liczby (to się wyświetla na ekranie)
   double _outcome = 0;
   int _operation =
       0; //jakiś switch będzie przy "=" który w zależności od wyboru wykona daną operację
   //jeszcze jakaś zmienna od której będzie zależała operacja jaka się wykona
+  bool _first_pushbutton = true;
+  bool _dot_not_pushed = true;
 
   void reset_calc() {
     setState(() {
-      _number = "";
+      _number = '0';
       _outcome = 0;
+      _operation = 0;
+      _first_pushbutton = true;
+      _dot_not_pushed = true;
     });
   }
 
   void backspace_calc() {
     setState(() {
+      //sprawdzanie czy kropka została usunięta i jeśli tak to zmienić odpowiednią zmienn ą logiczną
       if (_number.isNotEmpty) {
+        if (_number[_number.length - 1] == '.') {
+          _dot_not_pushed = true;
+        }
         _number = _number.substring(0, _number.length - 1);
       }
     });
   }
 
-  void push_zero() {
-    setState(() {});
-  }
-
-  void push_one() {
-    setState(() {});
-  }
-
-  void push_two() {
-    setState(() {});
-  }
-
-  void push_three() {
-    setState(() {});
-  }
-
-  void push_four() {
-    setState(() {});
-  }
-
-  void push_five() {
-    setState(() {});
-  }
-
-  void push_six() {
-    setState(() {});
-  }
-
-  void push_seven() {
-    setState(() {});
-  }
-
-  void push_eight() {
-    setState(() {});
-  }
-
-  void push_nine() {
-    setState(() {});
+  void clear_display() {
+    setState(() {
+      _number = "";
+      _first_pushbutton = true;
+      _dot_not_pushed = true;
+    });
   }
 
   void push_dot() {
-    setState(() {});
+    setState(() {
+      if ((!(_first_pushbutton)) && _dot_not_pushed) {
+        _number += '.';
+        _dot_not_pushed = false;
+      }
+    });
   }
+
+  void push_number(String value) {
+    setState(() {
+      if (_first_pushbutton) {
+        clear_display();
+        _number += value;
+        _first_pushbutton = false;
+      } else {
+        _number += value;
+      }
+    });
+  }
+
+  void push_zero() {
+    push_number('0');
+  }
+
+  void push_one() {
+    push_number('1');
+  }
+
+  void push_two() {
+    push_number('2');
+  }
+
+  void push_three() {
+    push_number('3');
+  }
+
+  void push_four() {
+    push_number('4');
+  }
+
+  void push_five() {
+    push_number('5');
+  }
+
+  void push_six() {
+    push_number('6');
+  }
+
+  void push_seven() {
+    push_number('7');
+  }
+
+  void push_eight() {
+    push_number('8');
+  }
+
+  void push_nine() {
+    push_number('9');
+  }
+
   /*
   Schemat działania kalkulatora:
   - zapis liczby pierwszej (dodanie na koniec ciągu znakowego _number wpisanej cyfry)
@@ -115,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    const double padding_button = 4.0;
+    const double padding_button = 2.0;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -138,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "$_number", //$_number
+              _number, //$_number
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             Row(
@@ -148,14 +188,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_long,
-                      onPressed: () {},
+                      onPressed: reset_calc,
                       child: Icon(Icons.refresh)),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_long,
-                      onPressed: () {},
+                      onPressed: backspace_calc,
                       child: Icon(Icons.backspace)),
                 ),
                 Padding(
@@ -174,21 +214,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_seven,
                       child: Text("7")),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_eight,
                       child: Text("8")),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_nine,
                       child: Text("9")),
                 ),
                 Padding(
@@ -207,21 +247,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_four,
                       child: Text("4")),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_five,
                       child: Text("5")),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_six,
                       child: Text("6")),
                 ),
                 Padding(
@@ -240,21 +280,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_one,
                       child: Text("1")),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_two,
                       child: Text("2")),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_three,
                       child: Text("3")),
                 ),
                 Padding(
@@ -273,14 +313,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_zero,
                       child: Text("0")),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(padding_button),
                   child: ElevatedButton(
                       style: buttonPrimary_short,
-                      onPressed: () {},
+                      onPressed: push_dot,
                       child: Text(".")),
                 ),
                 Padding(
